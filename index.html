@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>List of students</title>
+	<link rel="stylesheet" href="/css/normalize.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/media.css">
+	<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+		crossorigin="anonymous"></script>
+	<script defer src="/js/main.js"></script>
+</head>
+<body>
+	<main class="main">
+		<div class="container">
+			<div class="main__contant">
+				<div class="main__modal">
+					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Форма для данных новового студента</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+								</div>
+								<div class="modal-body">
+
+									<form class="row g-3 needs-validation" id="studentForm" novalidate>
+										<div class="col-md-4">
+											<input type="text" class="form-control" id="inputDateName" placeholder="Введите имя"
+											required>
+											<div class="valid-feedback">
+												Все хорошо!
+											</div>
+										</div>
+										<div class="col-md-4">
+											<input type="text" class="form-control" id="inputDateSurname" placeholder="Введите фамилию"
+											required>
+											<div class="valid-feedback">
+												Все хорошо!
+											</div>
+										</div>
+										<div class="col-md-4">
+											<input type="text" class="form-control" id="inputDatePatronymic" placeholder="Введите отчество"
+											required>
+											<div class="valid-feedback">
+												Все хорошо!
+											</div>
+										</div>
+										<div class="col-md-4">
+											<label for="inputDate03" class="form-label">Дата рождения</label>
+											<input type="date" class="form-control" id="inputDateBirth" required>
+											<div class="invalid-feedback">
+												Укажите дату рождения.
+											</div>
+										</div>
+										<div class="col-md-4">
+											<label for="inputDate" class="form-label">Дата начала обучения</label>
+											<input type="text" class="form-control" id="inputDateYear" required	>
+											<div class="invalid-feedback">
+												Укажите дату начала обучения.
+											</div>
+										</div>
+										<div class="col-md-4">
+											<label for="inputDate03" class="form-label">Факультет</label>
+											<input type="text" class="form-control" id="inputDateFaculty"
+												placeholder="Международных отношений" required>
+											<div class="invalid-feedback">
+												Укажите название факультет.
+											</div>
+										</div>
+
+										<div class="col-12">
+											<button class="btn btn-primary" type="submit">Отправить форму</button>
+										</div>
+										<div class="error-message" id="errorMessage"></div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="main__modal-btn">
+						<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							Внести нового студента
+						</button>
+					</div>
+				</div>
+
+				<div class="main__tabel">
+					<table  class="table table-success table-striped">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Имя</th>
+								<th scope="col">Фамилия</th>
+								<th scope="col">Отчество</th>
+								<th scope="col">Дата рождения/Возраст</th>
+								<th scope="col">Года обучения/Курс</th>
+								<th scope="col">Факультет</th>
+							</tr>
+						</thead>
+						<tbody id="tBody">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>
