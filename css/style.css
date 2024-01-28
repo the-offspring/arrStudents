@@ -5,3 +5,27 @@
 .main__modal-btn {
 	margin: 1.2rem 0 1.2rem .6rem;
 }
+
+th>span {
+	cursor: pointer;
+	-webkit-user-select: none;
+}
+
+.btn-container {
+	display: flex;
+	justify-content: space-between;
+	margin: 25px 0;
+}
+
+.btn-reset {
+	padding: 0;
+}
+
+.button_img {
+	max-height: 38px;
+}
+
+.main__modal {
+	margin-top: 25px;
+}
+

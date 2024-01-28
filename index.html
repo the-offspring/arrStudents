@@ -15,64 +15,53 @@
 		crossorigin="anonymous"></script>
 	<script defer src="/js/main.js"></script>
 </head>
+
 <body>
 	<main class="main">
 		<div class="container">
 			<div class="main__contant">
 				<div class="main__modal">
-					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+					<!-- Модальное окно Формы ввода данных нового студента -->
+					<div class="modal fade" id="studentFormModal" tabindex="-1" aria-labelledby="studentFormModalLabel"
 						aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Форма для данных новового студента</h5>
+									<h5 class="modal-title" id="studentFormModalLabel">Форма для данных новового студента</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
 								</div>
 								<div class="modal-body">
 
 									<form class="row g-3 needs-validation" id="studentForm" novalidate>
 										<div class="col-md-4">
-											<input type="text" class="form-control" id="inputDateName" placeholder="Введите имя"
-											required>
-											<div class="valid-feedback">
-												Все хорошо!
-											</div>
+											<input type="text" class="form-control" id="inputDateName" placeholder="Введите имя" required>
+											<div class="valid-feedback"> Все хорошо! </div>
 										</div>
 										<div class="col-md-4">
 											<input type="text" class="form-control" id="inputDateSurname" placeholder="Введите фамилию"
-											required>
-											<div class="valid-feedback">
-												Все хорошо!
-											</div>
+												required>
+											<div class="valid-feedback"> Все хорошо! </div>
 										</div>
 										<div class="col-md-4">
 											<input type="text" class="form-control" id="inputDatePatronymic" placeholder="Введите отчество"
-											required>
-											<div class="valid-feedback">
-												Все хорошо!
-											</div>
+												required>
+											<div class="valid-feedback"> Все хорошо! </div>
 										</div>
 										<div class="col-md-4">
-											<label for="inputDate03" class="form-label">Дата рождения</label>
+											<label for="inputDateBirth" class="form-label">Дата рождения</label>
 											<input type="date" class="form-control" id="inputDateBirth" required>
-											<div class="invalid-feedback">
-												Укажите дату рождения.
-											</div>
+											<div class="invalid-feedback">Укажите дату рождения.</div>
 										</div>
 										<div class="col-md-4">
-											<label for="inputDate" class="form-label">Дата начала обучения</label>
-											<input type="text" class="form-control" id="inputDateYear" required	>
-											<div class="invalid-feedback">
-												Укажите дату начала обучения.
-											</div>
+											<label for="inputDateYear" class="form-label">Дата начала обучения</label>
+											<input type="text" class="form-control" id="inputDateYear" required>
+											<div class="invalid-feedback"> Укажите дату начала обучения. </div>
 										</div>
 										<div class="col-md-4">
-											<label for="inputDate03" class="form-label">Факультет</label>
+											<label for="inputDateFaculty" class="form-label">Факультет</label>
 											<input type="text" class="form-control" id="inputDateFaculty"
 												placeholder="Международных отношений" required>
-											<div class="invalid-feedback">
-												Укажите название факультет.
-											</div>
+											<div class="invalid-feedback"> Укажите название факультет. </div>
 										</div>
 
 										<div class="col-12">
@@ -84,24 +73,77 @@
 							</div>
 						</div>
 					</div>
-					<div class="main__modal-btn">
-						<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+					<!-- Модальное окно Фильтра -->
+					<div class="collapse" id="collapseExample">
+						<div class="card card-body">
+							<form class="row g-3 needs-validation" id="filterStudentForm" novalidate>
+								<div class="col-md-4">
+									<label class="form-label">Имя студента</label>
+									<input type="text" class="form-control" id="filtrFirstName" placeholder="Иван">
+								</div>
+								<div class="col-md-4">
+									<label class="form-label">Фамилия студента</label>
+									<input type="text" class="form-control" id="filtrSurname" placeholder="Иванов">
+								</div>
+								<div class="col-md-4">
+									<label class="form-label">Отчество студента</label>
+									<input type="text" class="form-control" id="filtrPatronymic" placeholder="Иванович">
+								</div>
+								<div class="col-md-4">
+									<label class="form-label">Дата рождения</label>
+									<input type="text" class="form-control" id="filtrDateBirth" placeholder="01 - 01 - 2000 ">
+								</div>
+								<div class="col-md-4">
+									<label class="form-label">Дата начала обучения</label>
+									<input type="text" class="form-control" id="filtrStudYear" placeholder="2024">
+								</div>
+								<div class="col-md-4">
+									<label class="form-label">Факультет</label>
+									<input type="text" class="form-control" id="filtrFaculty" placeholder="Международных отношений">
+								</div>
+								<div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">
+									<button class="btn btn-outline-info" type="submit">Отфильтровать</button>
+									<button class="btn btn-reset" type="reset"><img class="button_img" src="img/reset.png">
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="btn-container justify-content-between">
+						
+						<!-- Кнопка-триггер модального окна Формы ввода данных нового студента -->
+						<div class="main__add-modal-btn">
+							<button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+							data-bs-target="#studentFormModal">
 							Внести нового студента
 						</button>
+						</div>
+						
+						<!-- Кнопка-триггер модального окна Фильтра -->
+						<div class="main__filter-modal-btn">
+							<button class="btn btn-outline-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+							aria-expanded="false" aria-controls="collapseExample">
+							Фильтр
+						</button>
+						
+						</div>
 					</div>
+
 				</div>
 
 				<div class="main__tabel">
-					<table  class="table table-success table-striped">
+					<table class="table table-success table-striped">
 						<thead>
 							<tr>
 								<th scope="col">#</th>
-								<th scope="col">Имя</th>
-								<th scope="col">Фамилия</th>
-								<th scope="col">Отчество</th>
-								<th scope="col">Дата рождения/Возраст</th>
-								<th scope="col">Года обучения/Курс</th>
-								<th scope="col">Факультет</th>
+								<th scope="col"><span id="firstName">Имя</span></th>
+								<th scope="col"><span id="surname">Фамилия</span></th>
+								<th scope="col"><span id="patronymic">Отчество</span></th>
+								<th scope="col"><span id="dateBirth">Дата рождения/Возраст</span></th>
+								<th scope="col"><span id="studYear">Года обучения/Курс</span></th>
+								<th scope="col"><span id="faculty">Факультет</span></th>
 							</tr>
 						</thead>
 						<tbody id="tBody">
@@ -112,4 +154,5 @@
 		</div>
 	</main>
 </body>
+
 </html>
