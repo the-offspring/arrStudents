@@ -8,7 +8,15 @@
 
 th>span {
 	cursor: pointer;
-	-webkit-user-select: none;
+	-webkit-user-select: none;	
+}
+
+th {
+	transition: background-color .6s;
+}
+
+th:hover:not(:nth-child(1)) {
+	background-color: #b8ccc4;
 }
 
 .btn-container {
