@@ -1,15 +1,8 @@
 (function () {
-	let arrStudents = [
-		{ number: 1, dateBirth: '1985-11-01', faculty: "ИВТ", firstName: "Тамара", patronymic: "Тарасовна", studYear: 1995, surname: "Иванова", },
-		{ number: 2, dateBirth: '1999-12-14', faculty: "Менеджмент", firstName: "Admin", patronymic: "Account", studYear: 2005, surname: "Hagen", },
-		{ number: 3, dateBirth: '1997-01-01', faculty: "ИВТ", firstName: "Bank", patronymic: "Account", studYear: 2015, surname: "Hagen", },
-		{ number: 4, dateBirth: "1995-09-19", faculty: "Право", firstName: "Иван", patronymic: "Иванович", studYear: 2012, surname: "Иванов", },
-		{ number: 5, dateBirth: "1980-05-14", faculty: "Стоматология", firstName: "Адель", patronymic: "Адель", studYear: 2000, surname: "Адель", },
-	];
 
 	const tableBody = document.getElementById('tBody');
 
-	let num = arrStudents.length + 1;
+	let num = 1;
 
 	function formHandler() {
 
@@ -175,7 +168,7 @@
 				tableBody.innerHTML += newItem;
 				
 			} else {
-				console.error('Table body element not found');
+				console.error('Элемент тела таблицы не найден');
 			}
 		});
 		
@@ -188,3 +181,4 @@
 		
 	});
 })();
+
