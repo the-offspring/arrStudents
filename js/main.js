@@ -1,11 +1,11 @@
 (function () {
 
 	const tableBody = document.getElementById('tBody');
-
+	const errorMessageElement = document.getElementById('errorMessage');
 	let num = 1;
+	const arrStudents = [];
 
 	function formHandler() {
-
 		const name = document.getElementById("inputDateName").value.trim();
 		const surname = document.getElementById('inputDateSurname').value.trim();
 		const patronymic = document.getElementById('inputDatePatronymic').value.trim();
@@ -13,11 +13,10 @@
 		const studYear = parseInt(document.getElementById('inputDateYear').value.trim());
 		const faculty = document.getElementById('inputDateFaculty').value.trim();
 
-		const errorMessageElement = document.getElementById('errorMessage');
-		errorMessageElement.innerHTML = '';
+		errorMessageElement.textContent = '';
 
-		if (!name || !surname || !patronymic || !patronymic || !dateBirth || !studYear || !faculty) {
-			errorMessageElement.innerHTML = 'Все поля обязательны для заполнения.';
+		if (!name || !surname || !patronymic || !dateBirth || !studYear || !faculty) {
+			errorMessageElement.textContent = 'Все поля обязательны для заполнения.';
 			return;
 		}
 
@@ -25,12 +24,12 @@
 		const currentYear = new Date().getFullYear();
 
 		if (dDate < new Date('1900-01-01') || dDate > new Date()) {
-			errorMessageElement.innerHTML = 'Дата рождения должна быть в диапазоне от 01.01.1900 до текущей даты.';
+			errorMessageElement.textContent = 'Дата рождения должна быть в диапазоне от 01.01.1900 до текущей даты.';
 			return;
 		}
 
 		if (studYear < 1930 || studYear > currentYear) {
-			errorMessageElement.innerHTML = 'Год начала обучения должен быть в диапазоне от 1930 до текущего года.';
+			errorMessageElement.textContent = 'Год начала обучения должен быть в диапазоне от 1930 до текущего года.';
 			return;
 		}
 
@@ -43,10 +42,9 @@
 			studYear: studYear,
 			faculty: faculty
 		};
-		[name, surname, patronymic, dateBirth, studYear, faculty].value = '';
+		[name, surname, patronymic, dateBirth, studYear, faculty].forEach(input => input.value = '');
 		return student;
 	}
-
 
 	function getStudentItem(student) {
 		const age = new Date().getFullYear() - new Date(student.dateBirth).getFullYear();
@@ -64,8 +62,8 @@
 					<td>${student.faculty}</td>
 					</tr>
 					`;
-				}
-				
+	}
+
 	function sortFunc(arr, prop, dir) {
 		arr.sort((a, b) => {
 			const A = String(a[prop]).toLowerCase();
@@ -74,11 +72,10 @@
 			return dir ? A.localeCompare(B) : B.localeCompare(A);
 		});
 		renderStudentsTable(arr);
-		
 	}
 
 	function renderStudentsTable(arr) {
-		tableBody.innerHTML = '';
+		tableBody.textContent = '';
 
 		arr.forEach((student, index) => {
 			num = index + 1;
@@ -87,68 +84,46 @@
 	}
 
 	function initColSort() {
-		dir = false;
+		let ascending = false;
 
-    const name = document.getElementById("firstName").addEventListener('click', function () {
-			dir = !dir;
-			sortFunc(arrStudents, "firstName", dir);
-      renderStudentsTable(arrStudents);
-    });
-    const surname = document.getElementById('surname').addEventListener('click', function () {
-      dir = !dir;
-			sortFunc(arrStudents, "surname", dir);
-      renderStudentsTable(arrStudents);
-    });
-    const patronymic = document.getElementById('patronymic').addEventListener('click', function () {
-      dir = !dir;
-			sortFunc(arrStudents, "patronymic", dir);
-      renderStudentsTable(arrStudents);
-    });
-    const dateBirth = document.getElementById('dateBirth').addEventListener('click', function () {
-      dir = !dir;
-			sortFunc(arrStudents, "dateBirth", dir);
-      renderStudentsTable(arrStudents);
-    });
-    const studYear = document.getElementById('studYear').addEventListener('click', function () {
-      dir = !dir;
-			sortFunc(arrStudents, "studYear", dir);
-      renderStudentsTable(arrStudents);
-    });
-    const faculty = document.getElementById('faculty').addEventListener('click', function () {
-      dir = !dir;
-			sortFunc(arrStudents, "faculty", dir);
-      renderStudentsTable(arrStudents);
-    });
-  }
+		const addSortListener = (element, property) => {
+			element.addEventListener('click', function () {
+				ascending = !ascending;
+				sortFunc(arrStudents, property, ascending);
+				renderStudentsTable(arrStudents);
+			});
+		};
+
+		addSortListener(document.getElementById("firstName"), "firstName");
+		addSortListener(document.getElementById("surname"), "surname");
+		addSortListener(document.getElementById("patronymic"), "patronymic");
+		addSortListener(document.getElementById("dateBirth"), "dateBirth");
+		addSortListener(document.getElementById("studYear"), "studYear");
+		addSortListener(document.getElementById("faculty"), "faculty");
+	}
 
 	function tablFiltr(arr, prop, value) {
-		let result = [];
-		let copyArr = [...arr];
-		for (const item of copyArr) {
-			if (String(item[prop]).toLowerCase().includes(value)) result.push(item);
-		}
-		return result;
-	}
-	
-	function initTablFiltr(arr) {
-		let copy = [...arr];
-		const name = String(document.getElementById('filtrFirstName').value).toLowerCase();
-		const surname = String(document.getElementById('filtrSurname').value).toLowerCase();
-		const patronymic = String(document.getElementById('filtrPatronymic').value).toLowerCase();
-		const dateBirth = String(document.getElementById('filtrDateBirth').value).toLowerCase();
-		const studYear = String(document.getElementById('filtrStudYear').value).toLowerCase();
-		const faculty = String(document.getElementById('filtrFaculty').value).toLowerCase();
-	
-		if (name !== '') copy = tablFiltr(copy, 'firstName', name);
-		if (surname !== '') copy = tablFiltr(copy, 'surname', surname);
-		if (patronymic !== '') copy = tablFiltr(copy, 'patronymic', patronymic);
-		if (dateBirth !== '') copy = tablFiltr(copy, 'dateBirth', dateBirth);
-		if (studYear !== '') copy = tablFiltr(copy, 'studYear', studYear);
-		if (faculty !== '') copy = tablFiltr(copy, 'faculty', faculty);
-	
-		renderStudentsTable(copy);
+		return arr.filter(item => String(item[prop]).toLowerCase().includes(value));
 	}
 
+	function initTablFiltr(arr) {
+		let filteredArray = [...arr];
+		const filtrFirstName = document.getElementById('filtrFirstName').value.trim().toLowerCase();
+		const filtrSurname = document.getElementById('filtrSurname').value.trim().toLowerCase();
+		const filtrPatronymic = document.getElementById('filtrPatronymic').value.trim().toLowerCase();
+		const filtrDateBirth = document.getElementById('filtrDateBirth').value.trim().toLowerCase();
+		const filtrStudYear = document.getElementById('filtrStudYear').value.trim().toLowerCase();
+		const filtrFaculty = document.getElementById('filtrFaculty').value.trim().toLowerCase();
+
+		if (filtrFirstName) filteredArray = tablFiltr(filteredArray, 'firstName', filtrFirstName);
+		if (filtrSurname) filteredArray = tablFiltr(filteredArray, 'surname', filtrSurname);
+		if (filtrPatronymic) filteredArray = tablFiltr(filteredArray, 'patronymic', filtrPatronymic);
+		if (filtrDateBirth) filteredArray = tablFiltr(filteredArray, 'dateBirth', filtrDateBirth);
+		if (filtrStudYear) filteredArray = tablFiltr(filteredArray, 'studYear', filtrStudYear);
+		if (filtrFaculty) filteredArray = tablFiltr(filteredArray, 'faculty', filtrFaculty);
+
+		renderStudentsTable(filteredArray);
+	}
 
 	document.addEventListener('DOMContentLoaded', function () {
 		if (!tableBody.innerHTML.trim()) {
@@ -156,29 +131,25 @@
 				num = student.number;
 				tableBody.innerHTML += getStudentItem(student);
 			});
-		};
-		const form = document.getElementById('studentForm').addEventListener('submit', function (event) {
+		}
+
+		document.getElementById('studentForm').addEventListener('submit', function (event) {
 			event.preventDefault();
-			
 			const student = formHandler();
 			if (student) {
 				arrStudents.push(student);
-				
-				const newItem = getStudentItem(student);
-				tableBody.innerHTML += newItem;
-				
+				tableBody.innerHTML += getStudentItem(student);
 			} else {
-				console.error('Элемент тела таблицы не найден');
+				console.log('Не удалось добавить студента в таблицу: некоторые элементы формы не найдены.');
 			}
 		});
-		
-		initColSort()
-		const filtrForm = document.getElementById('filterStudentForm').addEventListener('submit', function(event) {
-			event.preventDefault();
-			const copy = [...arrStudents]
-			initTablFiltr(copy);
-		})
-		
-	});
-})();
 
+		initColSort();
+
+		document.getElementById('filterStudentForm').addEventListener('submit', function(event) {
+			event.preventDefault();
+			initTablFiltr(arrStudents);
+		});
+	});
+
+})();
